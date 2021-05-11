@@ -8,6 +8,8 @@ jobs:
     services:
       mysql:
         image: mysql:8.0
+        ports:
+          - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
@@ -18,7 +20,7 @@ jobs:
           --entrypoint sh mysql:8.0 -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     steps:
     - run: |
-        mysql -h 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW DATABASES"
-        mysql -h 127.0.0.1 --port 3306 -uroot -ppassword -e "STATUS"
-        mysql -h 127.0.0.1 --port 3306 -uroot -ppassword -e "SHOW STATUS"
+        mysql -h mysql --port 3306 -uroot -ppassword -e "SHOW DATABASES"
+        mysql -h mysql --port 3306 -uroot -ppassword -e "STATUS"
+        mysql -h mysql --port 3306 -uroot -ppassword -e "SHOW STATUS"
 
