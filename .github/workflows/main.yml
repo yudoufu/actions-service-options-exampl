@@ -10,13 +10,14 @@ jobs:
         image: mysql:8.0
         ports:
           - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: sandbox
         options: >-
           --health-cmd="mysqladmin ping"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-          -e MYSQL_ROOT_PASSWORD=password
-          -e MYSQL_DATABASE=sandbox
           --entrypoint sh mysql:8.0 -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
     steps:
     - run: |
